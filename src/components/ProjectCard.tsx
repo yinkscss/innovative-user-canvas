@@ -18,7 +18,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
         const [entry] = entries;
         if (entry.isIntersecting) {
           entry.target.classList.add('animate-fade-in-up');
-          entry.target.style.animationDelay = `${0.1 * index}s`;
+          if (cardRef.current) {
+            cardRef.current.style.animationDelay = `${0.1 * index}s`;
+          }
         }
       },
       { threshold: 0.1 }

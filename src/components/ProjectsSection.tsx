@@ -34,9 +34,9 @@ const ProjectsSection: React.FC = () => {
   const projects: Project[] = [
     {
       id: 1,
-      title: "Screen Time Converter",
-      description: "Count the time your children spend on activities like homework, chores and exercise and convert it into screen time. Created with Vue.js and the Howlr library.",
-      tags: ["Vue.js", "Progressive Web App", "Interactive"],
+      title: "Move.it - Moving Company",
+      description: "A dynamic and user-friendly website for a moving company. Features an intuitive interface that allows users to easily navigate through services, schedule moves, and access resources related to relocating.",
+      tags: ["React", "Responsive Design", "Interactive UI"],
       links: {
         website: "#",
         github: "#",
@@ -44,9 +44,9 @@ const ProjectsSection: React.FC = () => {
     },
     {
       id: 2,
-      title: "SVG Inline Renderer",
-      description: "An NPM package that takes an SVG file and renders it as an inline SVG to the DOM and can also render HTML files. Supports data passing to dynamic SVGs.",
-      tags: ["NPM Package", "SVG", "JavaScript"],
+      title: "GC Mentorship Platform",
+      description: "An interactive platform for a cryptocurrency mentoring service. Utilized React for front-end development and Node.js for back-end, allowing for seamless user interactions and real-time updates.",
+      tags: ["React", "Node.js", "API Integration"],
       links: {
         website: "#",
         github: "#",
@@ -55,11 +55,11 @@ const ProjectsSection: React.FC = () => {
     },
     {
       id: 3,
-      title: "PCDJ DJ Software UI",
-      description: "Contributed to the design and skinning for various products including DEX-3, DEX-3 RE DJ software, LYRX karaoke software, and RED Mobile 3 DJ software.",
-      tags: ["UI Design", "Software", "Brand Identity"],
+      title: "Seventh Veile Escort Service",
+      description: "A full-stack web application with a visually appealing design created with React for the front-end, while implementing Supabase for robust back-end infrastructure to manage user data and ensure security.",
+      tags: ["React", "Supabase", "Full-Stack"],
       links: {
-        website: "#",
+        website: "https://seventhveile.com",
       }
     },
     {
@@ -103,7 +103,8 @@ const ProjectsSection: React.FC = () => {
             <span className="text-gradient">My Work</span>
           </h2>
           <p className="text-portfolio-light/80 max-w-2xl mx-auto opacity-0 animate-fade-in delay-100">
-            Here are some of the projects I've worked on. Each one represents a unique challenge and solution.
+            In my professional journey, I have developed several noteworthy web projects that highlight my skills in modern web development.
+            Each of these projects has allowed me to enhance my technical expertise and deliver high-quality web solutions that cater to different industries.
           </p>
         </div>
         

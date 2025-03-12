@@ -1,7 +1,9 @@
+
 import React, { useRef, useEffect, useState } from 'react';
 import { Send, Mail, MapPin, Phone } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
+
 const ContactSection: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -9,7 +11,9 @@ const ContactSection: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const formContainerRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -20,21 +24,25 @@ const ContactSection: React.FC = () => {
     }, {
       threshold: 0.1
     });
+    
     if (titleRef.current) {
       observer.observe(titleRef.current);
     }
-    if (formRef.current) {
-      observer.observe(formRef.current);
+    
+    if (formContainerRef.current) {
+      observer.observe(formContainerRef.current);
     }
+    
     return () => {
       if (titleRef.current) {
         observer.unobserve(titleRef.current);
       }
-      if (formRef.current) {
-        observer.unobserve(formRef.current);
+      if (formContainerRef.current) {
+        observer.unobserve(formContainerRef.current);
       }
     };
   }, []);
+  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !message) {
@@ -52,7 +60,9 @@ const ContactSection: React.FC = () => {
       setIsSubmitting(false);
     }, 1500);
   };
-  return <section id="contact" ref={sectionRef} className="py-20 bg-portfolio-dark relative">
+  
+  return (
+    <section id="contact" ref={sectionRef} className="py-20 bg-portfolio-dark relative">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="text-center mb-16">
           <h2 ref={titleRef} className="text-3xl md:text-4xl font-bold mb-4 opacity-0">
@@ -74,7 +84,7 @@ const ContactSection: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="font-medium">Email</h4>
-                  <a href="mailto:contact@example.com" className="text-portfolio-light/70 hover:text-portfolio-accent transition-colors duration-300">olayinkashittu2003@gmail.com</a>
+                  <a href="mailto:olayinkashittu2003@gmail.com" className="text-portfolio-light/70 hover:text-portfolio-accent transition-colors duration-300">olayinkashittu2003@gmail.com</a>
                 </div>
               </div>
               
@@ -109,8 +119,8 @@ const ContactSection: React.FC = () => {
             </div>
           </div>
           
-          <div ref={formRef} className="opacity-0">
-            <form onSubmit={handleSubmit} className="glass-card rounded-2xl p-6 md:p-8 space-y-6">
+          <div ref={formContainerRef} className="opacity-0">
+            <form ref={formRef} onSubmit={handleSubmit} className="glass-card rounded-2xl p-6 md:p-8 space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium mb-2">
                   Name
@@ -145,6 +155,8 @@ const ContactSection: React.FC = () => {
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default ContactSection;
