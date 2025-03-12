@@ -6,9 +6,7 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="space-y-4">
             <a href="#" className="text-2xl font-bold text-white inline-block">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-portfolio-light">
-                Portfolio
-              </span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-portfolio-light">Olayinka</span>
             </a>
             <p className="text-portfolio-light/70">
               Creating beautiful, functional websites and applications with passion and precision.
@@ -75,9 +73,7 @@ const Footer: React.FC = () => {
           <p className="text-portfolio-light/60 text-sm">
             © {new Date().getFullYear()} Portfolio. All rights reserved.
           </p>
-          <p className="text-portfolio-light/60 text-sm mt-2 md:mt-0">
-            Designed & Built with ❤️
-          </p>
+          
         </div>
       </div>
     </footer>;
