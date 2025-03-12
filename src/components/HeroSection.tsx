@@ -42,7 +42,7 @@ const HeroSection: React.FC = () => {
         </div>
         
         <div className="md:w-1/2 flex justify-center mt-8 md:mt-0">
-          <img ref={laptopRef} alt="Developer Laptop" className="w-full max-w-md opacity-0" src="/lovable-uploads/43e5ea31-ff28-457c-8c1a-d7a5b19c0f6a.png" />
+          <img ref={laptopRef} alt="Developer Laptop" className="w-full max-w-md opacity-0" src="/lovable-uploads/6c448b98-3572-40b1-ac1d-6f46f6e3fc20.png" />
         </div>
       </div>
       
