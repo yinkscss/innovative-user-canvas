@@ -2,12 +2,14 @@ import React, { useRef, useEffect } from 'react';
 import { CheckCircle2, Code2, PenTool, Laptop, Users } from 'lucide-react';
 import CurvedDivider from './CurvedDivider';
 import { cn } from '@/lib/utils';
+
 interface SkillCardProps {
   icon: React.ReactNode;
   title: string;
   description: string;
   delay: number;
 }
+
 const SkillCard: React.FC<SkillCardProps> = ({
   icon,
   title,
@@ -15,25 +17,29 @@ const SkillCard: React.FC<SkillCardProps> = ({
   delay
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
+  
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
       const [entry] = entries;
       if (entry.isIntersecting) {
         entry.target.classList.add('animate-fade-in-up');
-        entry.target.style.animationDelay = `${delay}s`;
+        (entry.target as HTMLElement).style.animationDelay = `${delay}s`;
       }
     }, {
       threshold: 0.1
     });
+    
     if (cardRef.current) {
       observer.observe(cardRef.current);
     }
+    
     return () => {
       if (cardRef.current) {
         observer.unobserve(cardRef.current);
       }
     };
   }, [delay]);
+  
   return <div ref={cardRef} className="glass-card p-6 rounded-xl opacity-0 transition-all duration-300 hover:shadow-lg hover:shadow-portfolio-accent/20">
       <div className="mb-4 text-portfolio-accent">
         {icon}
@@ -42,9 +48,11 @@ const SkillCard: React.FC<SkillCardProps> = ({
       <p className="text-portfolio-light/70">{description}</p>
     </div>;
 };
+
 const AboutSection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -55,15 +63,18 @@ const AboutSection: React.FC = () => {
     }, {
       threshold: 0.1
     });
+    
     if (titleRef.current) {
       observer.observe(titleRef.current);
     }
+    
     return () => {
       if (titleRef.current) {
         observer.unobserve(titleRef.current);
       }
     };
   }, []);
+  
   const skills = [{
     icon: <Code2 className="w-6 h-6" />,
     title: "Frontend Development",
@@ -85,6 +96,7 @@ const AboutSection: React.FC = () => {
     description: "Working effectively in teams using modern development workflows and tools.",
     delay: 0.4
   }];
+  
   return <section id="about" ref={sectionRef} className="relative py-20 overflow-hidden bg-gradient-radial from-portfolio-card to-portfolio-dark">
       <CurvedDivider position="top" className="absolute top-0 left-0 w-full h-16" />
       
@@ -140,4 +152,5 @@ const AboutSection: React.FC = () => {
       </div>
     </section>;
 };
+
 export default AboutSection;
