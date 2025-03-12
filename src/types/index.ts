@@ -23,3 +23,9 @@ export type AnimatedTextProps = {
   className?: string;
   delay?: number;
 };
+
+export interface ContactFormData {
+  name: string;
+  email: string;
+  message: string;
+}

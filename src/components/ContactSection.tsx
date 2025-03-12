@@ -3,11 +3,21 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Send, Mail, MapPin, Phone } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
+import emailjs from 'emailjs-com';
+
+// Define the types for our contact form
+interface ContactFormData {
+  name: string;
+  email: string;
+  message: string;
+}
 
 const ContactSection: React.FC = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+  const [formData, setFormData] = useState<ContactFormData>({
+    name: '',
+    email: '',
+    message: ''
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -43,22 +53,52 @@ const ContactSection: React.FC = () => {
     };
   }, []);
   
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !email || !message) {
+    
+    if (!formData.name || !formData.email || !formData.message) {
       toast.error('Please fill in all fields');
       return;
     }
+    
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
-      toast.success('Message sent successfully!');
-      setName('');
-      setEmail('');
-      setMessage('');
-      setIsSubmitting(false);
-    }, 1500);
+    // Replace these with your actual EmailJS service, template, and user IDs
+    const serviceId = 'YOUR_EMAILJS_SERVICE_ID';
+    const templateId = 'YOUR_EMAILJS_TEMPLATE_ID';
+    const userId = 'YOUR_EMAILJS_USER_ID';
+    
+    // Prepare the template parameters
+    const templateParams = {
+      from_name: formData.name,
+      reply_to: formData.email,
+      message: formData.message
+    };
+
+    // Send the email using EmailJS
+    emailjs.send(serviceId, templateId, templateParams, userId)
+      .then(() => {
+        toast.success('Message sent successfully!');
+        // Reset form after successful submission
+        setFormData({
+          name: '',
+          email: '',
+          message: ''
+        });
+        setIsSubmitting(false);
+      })
+      .catch((error) => {
+        console.error('Error sending email:', error);
+        toast.error('Failed to send message. Please try again later.');
+        setIsSubmitting(false);
+      });
   };
   
   return (
@@ -125,31 +165,66 @@ const ContactSection: React.FC = () => {
                 <label htmlFor="name" className="block text-sm font-medium mb-2">
                   Name
                 </label>
-                <input id="name" type="text" value={name} onChange={e => setName(e.target.value)} className="w-full px-4 py-3 bg-portfolio-dark/50 border border-portfolio-accent/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-portfolio-accent/50 transition-all duration-300" placeholder="Your name" />
+                <input 
+                  id="name" 
+                  name="name"
+                  type="text" 
+                  value={formData.name} 
+                  onChange={handleChange} 
+                  className="w-full px-4 py-3 bg-portfolio-dark/50 border border-portfolio-accent/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-portfolio-accent/50 transition-all duration-300" 
+                  placeholder="Your name" 
+                />
               </div>
               
               <div>
                 <label htmlFor="email" className="block text-sm font-medium mb-2">
                   Email
                 </label>
-                <input id="email" type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full px-4 py-3 bg-portfolio-dark/50 border border-portfolio-accent/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-portfolio-accent/50 transition-all duration-300" placeholder="Your email" />
+                <input 
+                  id="email" 
+                  name="email"
+                  type="email" 
+                  value={formData.email} 
+                  onChange={handleChange} 
+                  className="w-full px-4 py-3 bg-portfolio-dark/50 border border-portfolio-accent/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-portfolio-accent/50 transition-all duration-300" 
+                  placeholder="Your email" 
+                />
               </div>
               
               <div>
                 <label htmlFor="message" className="block text-sm font-medium mb-2">
                   Message
                 </label>
-                <textarea id="message" value={message} onChange={e => setMessage(e.target.value)} rows={5} className="w-full px-4 py-3 bg-portfolio-dark/50 border border-portfolio-accent/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-portfolio-accent/50 transition-all duration-300 resize-none" placeholder="Your message"></textarea>
+                <textarea 
+                  id="message" 
+                  name="message"
+                  value={formData.message} 
+                  onChange={handleChange} 
+                  rows={5} 
+                  className="w-full px-4 py-3 bg-portfolio-dark/50 border border-portfolio-accent/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-portfolio-accent/50 transition-all duration-300 resize-none" 
+                  placeholder="Your message"
+                ></textarea>
               </div>
               
-              <button type="submit" disabled={isSubmitting} className={cn("w-full flex items-center justify-center gap-2 bg-gradient-to-r from-portfolio-accent to-portfolio-highlight text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg hover:shadow-portfolio-accent/30 transition-all duration-300", isSubmitting && "opacity-70 cursor-not-allowed")}>
-                {isSubmitting ? <>
+              <button 
+                type="submit" 
+                disabled={isSubmitting} 
+                className={cn(
+                  "w-full flex items-center justify-center gap-2 bg-gradient-to-r from-portfolio-accent to-portfolio-highlight text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg hover:shadow-portfolio-accent/30 transition-all duration-300", 
+                  isSubmitting && "opacity-70 cursor-not-allowed"
+                )}
+              >
+                {isSubmitting ? (
+                  <>
                     <div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                     <span>Sending...</span>
-                  </> : <>
+                  </>
+                ) : (
+                  <>
                     <span>Send Message</span>
                     <Send className="w-4 h-4" />
-                  </>}
+                  </>
+                )}
               </button>
             </form>
           </div>
