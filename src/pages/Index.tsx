@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
@@ -7,9 +7,22 @@ import ProjectsSection from '@/components/ProjectsSection';
 import AboutSection from '@/components/AboutSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
+import SkillsSection from '@/components/SkillsSection';
+import TestimonialsSection from '@/components/TestimonialsSection';
+import ThemeToggle from '@/components/ThemeToggle';
 
 const Index: React.FC = () => {
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+  const toggleTheme = () => {
+    setTheme(prevTheme => (prevTheme === 'dark' ? 'light' : 'dark'));
+  };
+
   useEffect(() => {
+    // Apply theme to the document
+    document.documentElement.classList.toggle('light-mode', theme === 'light');
+    document.documentElement.classList.toggle('dark-mode', theme === 'dark');
+    
     // Intersection Observer for animations on scroll
     const observer = new IntersectionObserver(
       (entries) => {
@@ -32,14 +45,19 @@ const Index: React.FC = () => {
         observer.unobserve(el);
       });
     };
-  }, []);
+  }, [theme]);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className={`flex flex-col min-h-screen ${theme}`}>
       <Navbar />
+      <div className="fixed top-6 right-6 z-50">
+        <ThemeToggle currentTheme={theme} toggleTheme={toggleTheme} />
+      </div>
       <main>
         <HeroSection />
         <ProjectsSection />
+        <SkillsSection />
+        <TestimonialsSection />
         <AboutSection />
         <ContactSection />
       </main>

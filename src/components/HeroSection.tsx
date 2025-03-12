@@ -1,8 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+
+import React, { useRef, useEffect } from 'react';
+import { ArrowDown, ChevronDown } from 'lucide-react';
 import AnimatedText from './AnimatedText';
-import { ArrowDownCircle } from 'lucide-react';
+
 const HeroSection: React.FC = () => {
-  const laptopRef = useRef<HTMLImageElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
+
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -13,46 +17,84 @@ const HeroSection: React.FC = () => {
     }, {
       threshold: 0.1
     });
-    if (laptopRef.current) {
-      observer.observe(laptopRef.current);
+    
+    if (imageRef.current) {
+      observer.observe(imageRef.current);
     }
+    
     return () => {
-      if (laptopRef.current) {
-        observer.unobserve(laptopRef.current);
+      if (imageRef.current) {
+        observer.unobserve(imageRef.current);
       }
     };
   }, []);
-  return <section id="home" className="min-h-screen relative pt-20 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 h-[90vh] flex flex-col md:flex-row items-center justify-center">
-        <div className="md:w-1/2 space-y-6 z-10">
-          <div>
-            <AnimatedText text="Welcome." className="text-5xl md:text-7xl font-bold tracking-tight" delay={0.1} />
+
+  return (
+    <section id="home" ref={sectionRef} className="min-h-screen flex items-center py-20 px-6 md:px-12 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-radial from-portfolio-card/50 to-portfolio-dark z-0"></div>
+      
+      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+        <div className="flex flex-col space-y-6">
+          <div className="space-y-2">
+            <AnimatedText 
+              text="Hello, I'm a" 
+              className="text-lg md:text-xl text-portfolio-light/80"
+              delay={0}
+            />
+            <AnimatedText 
+              text="Web Developer" 
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-gradient"
+              delay={0.1}
+            />
+            <AnimatedText 
+              text="Crafting digital experiences with code" 
+              className="text-xl md:text-2xl text-portfolio-light/80"
+              delay={0.2}
+            />
           </div>
           
-          <div className="max-w-xl space-y-6 mt-8">
-            <AnimatedText text="I'm a passionate web developer with a love for crafting beautiful, functional websites and applications." className="text-xl text-portfolio-light/80 leading-relaxed" delay={0.4} />
-            
-            <div className="pt-4 opacity-0 animate-fade-in delay-700">
-              <a href="#projects" className="inline-flex items-center gap-2 bg-gradient-to-r from-portfolio-accent to-portfolio-highlight text-white px-6 py-3 rounded-full font-medium hover:shadow-lg hover:shadow-portfolio-accent/30 transition-all duration-300 group">
-                View my work
-                <ArrowDownCircle className="w-5 h-5 group-hover:translate-y-1 transition-transform duration-300" />
-              </a>
-            </div>
+          <p className="text-portfolio-light/70 max-w-xl text-balance opacity-0 animate-fade-in delay-300">
+            I'm a passionate and skilled web professional, bringing a blend of creativity and technical expertise to the digital realm. From captivating web designs to seamless backend development, my skills span the spectrum of web development.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 opacity-0 animate-fade-in delay-400">
+            <a 
+              href="#projects" 
+              className="px-6 py-3 bg-portfolio-accent hover:bg-portfolio-accent/90 text-white rounded-full transition-colors duration-300 text-center hover-glow"
+            >
+              View My Work
+            </a>
+            <a 
+              href="#contact" 
+              className="px-6 py-3 bg-transparent border border-portfolio-accent/50 hover:border-portfolio-accent text-portfolio-light rounded-full transition-colors duration-300 text-center hover-glow"
+            >
+              Contact Me
+            </a>
           </div>
         </div>
         
-        <div className="md:w-1/2 flex justify-center mt-8 md:mt-0">
-          <img ref={laptopRef} alt="Developer Laptop" className="w-full max-w-md opacity-0" src="/lovable-uploads/6c448b98-3572-40b1-ac1d-6f46f6e3fc20.png" />
+        <div className="flex justify-center">
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-b from-portfolio-accent/40 to-portfolio-dark/40 rounded-full blur-3xl opacity-30"></div>
+            <img 
+              ref={imageRef}
+              src="/lovable-uploads/6d6d0689-bd5d-4ee3-bb7e-76c793091b7f.png" 
+              alt="Developer" 
+              className="relative z-10 opacity-0 max-w-md lg:max-w-lg xl:max-w-xl"
+            />
+          </div>
         </div>
       </div>
       
-      <div className="absolute bottom-0 left-0 w-full">
-        <div className="animate-bounce flex justify-center pb-8">
-          <a href="#projects" className="text-portfolio-light/50 hover:text-portfolio-accent transition-colors duration-300">
-            <ArrowDownCircle className="w-8 h-8" />
-          </a>
-        </div>
-      </div>
-    </section>;
+      <a 
+        href="#projects" 
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-portfolio-light/60 hover:text-portfolio-accent transition-colors duration-300 animate-bounce"
+        aria-label="Scroll to projects"
+      >
+        <ChevronDown className="w-8 h-8" />
+      </a>
+    </section>
+  );
 };
+
 export default HeroSection;

@@ -37,6 +37,36 @@
 
     --radius: 0.75rem;
   }
+
+  .light-mode {
+    --background: 0 0% 98%;
+    --foreground: 270 98% 5%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 270 98% 5%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 270 98% 5%;
+
+    --primary: 264 30% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 260 25% 95%;
+    --secondary-foreground: 264 30% 40%;
+
+    --muted: 264 30% 95%;
+    --muted-foreground: 264 30% 40%;
+
+    --accent: 264 30% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 80% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 264 30% 90%;
+    --input: 264 30% 90%;
+    --ring: 264 30% 50%;
+  }
 }
 
 @layer base {
@@ -50,6 +80,17 @@
 
   body {
     @apply bg-portfolio-dark text-portfolio-light font-inter antialiased;
+  }
+  
+  .light-mode {
+    @apply bg-white text-portfolio-dark;
+    background-image: 
+      radial-gradient(circle at 10% 30%, rgba(110, 89, 165, 0.07) 0%, transparent 40%),
+      radial-gradient(circle at 90% 70%, rgba(110, 89, 165, 0.07) 0%, transparent 40%);
+  }
+  
+  .dark-mode {
+    @apply bg-portfolio-dark text-portfolio-light;
     background-image: 
       radial-gradient(circle at 10% 30%, rgba(110, 89, 165, 0.07) 0%, transparent 40%),
       radial-gradient(circle at 90% 70%, rgba(110, 89, 165, 0.07) 0%, transparent 40%);
@@ -87,13 +128,42 @@
     z-index: -1;
   }
   
+  .light-mode .curved-section::after {
+    background-color: #f0f0f0;
+  }
+  
   .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-portfolio-accent to-portfolio-highlight;
+  }
+  
+  .light-mode .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-portfolio-accent to-portfolio-highlight;
   }
   
   /* Styles for glassmorphism cards */
   .glass-card {
     @apply bg-portfolio-card bg-opacity-60 backdrop-blur-lg border border-white/10 shadow-xl;
+  }
+  
+  .light-mode .glass-card {
+    @apply bg-white bg-opacity-80 backdrop-blur-lg border border-portfolio-accent/10 shadow-xl;
+  }
+  
+  /* Microinteractions */
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
+  }
+  
+  .hover-rotate {
+    @apply transition-transform duration-300 hover:rotate-3;
+  }
+  
+  .hover-glow {
+    @apply transition-all duration-300 hover:shadow-lg hover:shadow-portfolio-accent/30;
+  }
+  
+  .light-mode .hover-glow {
+    @apply hover:shadow-portfolio-accent/20;
   }
   
   /* Custom animation delays */
@@ -115,7 +185,7 @@
 
   /* Card hover effect */
   .project-card {
-    @apply transition-all duration-300 hover:shadow-lg hover:shadow-portfolio-accent/20;
+    @apply transition-all duration-300 hover:shadow-lg hover:shadow-portfolio-accent/20 hover:-translate-y-1;
   }
   
   .project-card:hover .project-card-content {
@@ -131,11 +201,43 @@
     @apply bg-portfolio-dark;
   }
   
+  .light-mode ::-webkit-scrollbar-track {
+    @apply bg-slate-100;
+  }
+  
   ::-webkit-scrollbar-thumb {
     @apply bg-portfolio-accent/40 rounded-full transition-all duration-300;
   }
   
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-portfolio-accent/70;
+  }
+  
+  /* Button hover effects */
+  .btn-hover-effect {
+    @apply relative overflow-hidden;
+  }
+  
+  .btn-hover-effect:after {
+    @apply absolute inset-0 rounded-full bg-white opacity-0 transition-opacity duration-300;
+    content: '';
+  }
+  
+  .btn-hover-effect:hover:after {
+    @apply opacity-20;
+  }
+  
+  /* Link underline animations */
+  .link-underline {
+    @apply relative;
+  }
+  
+  .link-underline:after {
+    @apply absolute left-0 bottom-0 w-full h-0.5 bg-portfolio-accent scale-x-0 origin-bottom-right transition-transform duration-300 ease-out;
+    content: '';
+  }
+  
+  .link-underline:hover:after {
+    @apply scale-x-100 origin-bottom-left;
   }
 }

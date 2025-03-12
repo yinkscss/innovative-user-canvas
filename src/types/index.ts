@@ -9,6 +9,13 @@ export type Project = {
     github?: string;
     demo?: string;
   };
+  caseStudy?: {
+    overview: string;
+    challenges: string[];
+    solutions: string[];
+    results: string;
+    technologies?: string[];
+  };
 };
 
 export type AnimatedTextProps = {

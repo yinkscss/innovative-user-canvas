@@ -156,6 +156,16 @@ export default {
 						opacity: '1'
 					}
 				},
+				'pulse-glow': {
+					'0%, 100%': {
+						opacity: '1',
+						boxShadow: '0 0 0 0 rgba(110, 89, 165, 0)'
+					},
+					'50%': {
+						opacity: '0.8',
+						boxShadow: '0 0 0 10px rgba(110, 89, 165, 0.3)'
+					}
+				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -168,6 +178,7 @@ export default {
 				'text-reveal': 'text-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
 				'blur-in': 'blur-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
 				'scale-in': 'scale-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+				'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
 			},
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
