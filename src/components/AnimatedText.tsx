@@ -28,12 +28,6 @@ const AnimatedText: React.FC<AnimatedTextProps> = ({
       }
     };
   }, [delay]);
-  return <div className="overflow-hidden bg-[#000a0e]/0">
-      <div ref={textRef} className={cn("opacity-0", className)} style={{
-      transform: 'translateY(100%)'
-    }}>
-        {text}
-      </div>
-    </div>;
+  return;
 };
 export default AnimatedText;
