@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
@@ -8,11 +9,14 @@ import Footer from '@/components/Footer';
 import SkillsSection from '@/components/SkillsSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import ThemeToggle from '@/components/ThemeToggle';
+
 const Index: React.FC = () => {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  
   const toggleTheme = () => {
     setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');
   };
+  
   useEffect(() => {
     // Apply theme to the document
     document.documentElement.classList.toggle('light-mode', theme === 'light');
@@ -33,13 +37,16 @@ const Index: React.FC = () => {
     document.querySelectorAll('.slide-in-section').forEach(el => {
       observer.observe(el);
     });
+    
     return () => {
       document.querySelectorAll('.slide-in-section').forEach(el => {
         observer.unobserve(el);
       });
     };
   }, [theme]);
-  return <div className={`flex flex-col min-h-screen ${theme}`}>
+  
+  return (
+    <div className={`flex flex-col min-h-screen ${theme}`}>
       <Navbar />
       <main>
         <HeroSection />
@@ -50,8 +57,12 @@ const Index: React.FC = () => {
         <ContactSection />
       </main>
       <Footer />
-      {/* Theme toggle moved to bottom-right corner for better accessibility */}
-      
-    </div>;
+      {/* Theme toggle at bottom-right corner for better accessibility */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <ThemeToggle currentTheme={theme} toggleTheme={toggleTheme} />
+      </div>
+    </div>
+  );
 };
+
 export default Index;

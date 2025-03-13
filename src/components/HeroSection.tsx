@@ -1,9 +1,12 @@
+
 import React, { useRef, useEffect } from 'react';
 import { ArrowDown, ChevronDown } from 'lucide-react';
 import AnimatedText from './AnimatedText';
+
 const HeroSection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
+
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -14,20 +17,27 @@ const HeroSection: React.FC = () => {
     }, {
       threshold: 0.1
     });
+
     if (imageRef.current) {
       observer.observe(imageRef.current);
     }
+
     return () => {
       if (imageRef.current) {
         observer.unobserve(imageRef.current);
       }
     };
   }, []);
+
   return <section id="home" ref={sectionRef} className="min-h-screen flex items-center py-20 px-6 md:px-12 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-radial from-portfolio-card/50 to-portfolio-dark z-0"></div>
       
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
         <div className="flex flex-col space-y-6">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gradient mb-6 opacity-0 animate-fade-in">
+            WELCOME
+          </h1>
+          
           <div className="space-y-2">
             <AnimatedText text="Hello, I'm a" className="text-lg md:text-xl text-portfolio-light/80" delay={0} />
             <AnimatedText text="Web Developer" className="text-4xl md:text-5xl lg:text-6xl font-bold text-gradient" delay={0.1} />
@@ -61,4 +71,5 @@ const HeroSection: React.FC = () => {
       </a>
     </section>;
 };
+
 export default HeroSection;
