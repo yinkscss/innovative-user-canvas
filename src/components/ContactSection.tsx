@@ -70,10 +70,10 @@ const ContactSection: React.FC = () => {
     
     setIsSubmitting(true);
 
-    // Replace these with your actual EmailJS service, template, and user IDs
-    const serviceId = 'YOUR_EMAILJS_SERVICE_ID';
-    const templateId = 'YOUR_EMAILJS_TEMPLATE_ID';
-    const userId = 'YOUR_EMAILJS_USER_ID';
+    // Using the provided EmailJS credentials
+    const serviceId = 'service_ho33o2b';
+    const templateId = 'template_6l9xete';
+    const userId = 'FcDbzGGqWNRPRfIYg';
     
     // Prepare the template parameters
     const templateParams = {
