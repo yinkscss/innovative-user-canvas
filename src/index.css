@@ -39,33 +39,33 @@
   }
 
   .light-mode {
-    --background: 0 0% 98%;
-    --foreground: 270 98% 5%;
+    --background: 210 50% 98%;
+    --foreground: 270 50% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 270 98% 5%;
+    --card-foreground: 240 10% 3.9%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 270 98% 5%;
+    --popover-foreground: 240 10% 3.9%;
 
-    --primary: 264 30% 50%;
+    --primary: 264 80% 60%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 260 25% 95%;
-    --secondary-foreground: 264 30% 40%;
+    --secondary: 60 80% 96%;
+    --secondary-foreground: 20 30% 30%;
 
-    --muted: 264 30% 95%;
-    --muted-foreground: 264 30% 40%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 240 3.8% 46.1%;
 
-    --accent: 264 30% 50%;
+    --accent: 340 80% 65%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 80% 50%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 264 30% 90%;
-    --input: 264 30% 90%;
-    --ring: 264 30% 50%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 264 60% 50%;
   }
 }
 
@@ -83,10 +83,10 @@
   }
   
   .light-mode {
-    @apply bg-white text-portfolio-dark;
+    @apply bg-gradient-to-br from-[#F2FCE2] to-[#D3E4FD] text-portfolio-dark;
     background-image: 
-      radial-gradient(circle at 10% 30%, rgba(110, 89, 165, 0.07) 0%, transparent 40%),
-      radial-gradient(circle at 90% 70%, rgba(110, 89, 165, 0.07) 0%, transparent 40%);
+      radial-gradient(circle at 10% 30%, rgba(110, 89, 165, 0.1) 0%, transparent 40%),
+      radial-gradient(circle at 90% 70%, rgba(246, 114, 128, 0.1) 0%, transparent 40%);
   }
   
   .dark-mode {
@@ -129,7 +129,7 @@
   }
   
   .light-mode .curved-section::after {
-    background-color: #f0f0f0;
+    background-color: #E5DEFF;
   }
   
   .text-gradient {
@@ -137,7 +137,7 @@
   }
   
   .light-mode .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-portfolio-accent to-portfolio-highlight;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#8B5CF6] to-[#D946EF];
   }
   
   /* Styles for glassmorphism cards */
@@ -146,7 +146,8 @@
   }
   
   .light-mode .glass-card {
-    @apply bg-white bg-opacity-80 backdrop-blur-lg border border-portfolio-accent/10 shadow-xl;
+    @apply bg-white bg-opacity-90 backdrop-blur-lg border border-[#8B5CF6]/20 shadow-xl;
+    box-shadow: 0 8px 32px rgba(139, 92, 246, 0.1);
   }
   
   /* Microinteractions */
@@ -163,7 +164,7 @@
   }
   
   .light-mode .hover-glow {
-    @apply hover:shadow-portfolio-accent/20;
+    @apply hover:shadow-[#8B5CF6]/30;
   }
   
   /* Custom animation delays */
@@ -188,6 +189,10 @@
     @apply transition-all duration-300 hover:shadow-lg hover:shadow-portfolio-accent/20 hover:-translate-y-1;
   }
   
+  .light-mode .project-card {
+    @apply hover:shadow-[#8B5CF6]/20;
+  }
+  
   .project-card:hover .project-card-content {
     @apply translate-y-0 opacity-100;
   }
@@ -202,7 +207,7 @@
   }
   
   .light-mode ::-webkit-scrollbar-track {
-    @apply bg-slate-100;
+    @apply bg-[#F1F0FB];
   }
   
   ::-webkit-scrollbar-thumb {
@@ -211,6 +216,14 @@
   
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-portfolio-accent/70;
+  }
+  
+  .light-mode ::-webkit-scrollbar-thumb {
+    @apply bg-[#8B5CF6]/40;
+  }
+  
+  .light-mode ::-webkit-scrollbar-thumb:hover {
+    @apply bg-[#8B5CF6]/70;
   }
   
   /* Button hover effects */
@@ -237,7 +250,26 @@
     content: '';
   }
   
+  .light-mode .link-underline:after {
+    @apply bg-[#8B5CF6];
+  }
+  
   .link-underline:hover:after {
     @apply scale-x-100 origin-bottom-left;
+  }
+  
+  /* Light mode specific styles for better readability */
+  .light-mode input,
+  .light-mode textarea {
+    @apply bg-white/70 border-[#8B5CF6]/20 text-portfolio-dark;
+  }
+  
+  .light-mode input::placeholder,
+  .light-mode textarea::placeholder {
+    @apply text-gray-500;
+  }
+  
+  .light-mode label {
+    @apply text-portfolio-dark;
   }
 }

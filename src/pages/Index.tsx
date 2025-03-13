@@ -50,9 +50,6 @@ const Index: React.FC = () => {
   return (
     <div className={`flex flex-col min-h-screen ${theme}`}>
       <Navbar />
-      <div className="fixed top-6 right-6 z-50">
-        <ThemeToggle currentTheme={theme} toggleTheme={toggleTheme} />
-      </div>
       <main>
         <HeroSection />
         <ProjectsSection />
@@ -62,6 +59,10 @@ const Index: React.FC = () => {
         <ContactSection />
       </main>
       <Footer />
+      {/* Theme toggle moved to bottom-right corner for better accessibility */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <ThemeToggle currentTheme={theme} toggleTheme={toggleTheme} />
+      </div>
     </div>
   );
 };
